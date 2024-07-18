@@ -10,6 +10,7 @@ interface ButtonProps {
     className?: string;
     children: React.ReactNode;
     badgeIcon?: string;
+    isCardButton?: boolean;  // New prop
 }
 
 export const Button: React.FC<ButtonProps> = ({ 
@@ -17,7 +18,8 @@ export const Button: React.FC<ButtonProps> = ({
     showArrow, 
     className = "", 
     children,
-    badgeIcon = "/ph_arrow-down-light.svg"
+    badgeIcon = "/ph_arrow-down-light.svg",
+    isCardButton = false  // Default to false
 }) => {
     const [isHovered, setIsHovered] = useState(false);
 
@@ -43,6 +45,9 @@ export const Button: React.FC<ButtonProps> = ({
     };
 
     const getArrowIcon = () => {
+        if (isCardButton && isHovered) {
+            return "/ph_arrow-right-light.svg";
+        }
         switch (variant) {
             case "primary":
                 return isHovered ? "/ph_arrow-right-dark.svg" : "/ph_arrow-up-right-dark.svg";
@@ -65,7 +70,7 @@ export const Button: React.FC<ButtonProps> = ({
                 <Badge
                     style="default"
                     size="default"
-                    icon={badgeIcon}
+                    icon={isCardButton && isHovered ? "/ph_arrow-right-light.svg" : badgeIcon}
                     className={isHovered ? "bg-backgroundmuted-hover" : ""}
                 />
                 <span className="font-text-meta w-fit tracking-[var(--text-meta-letter-spacing)] [font-style:var(--text-meta-font-style)] text-[length:var(--text-meta-font-size)] text-textdefault font-[number:var(--text-meta-font-weight)] leading-[var(--text-meta-line-height)] whitespace-nowrap relative">

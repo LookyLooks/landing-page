@@ -44,12 +44,11 @@ export const Badge: React.FC<BadgeProps> = ({
         <div
             className={`flex items-center justify-center relative rounded-[500px] ${getSizeClasses()} ${getStyleClasses()} ${className}`}
         >
-            <Image 
-                src={icon}
-                alt="Badge Icon"
-                width={20}
-                height={20}
-            />
+             {typeof icon === "string" ? (
+                <Image src={icon} alt="Icon" width={20} height={20} />
+            ) : (
+                icon
+            )}
         </div>
     );
 };
